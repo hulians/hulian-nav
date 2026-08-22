@@ -372,6 +372,7 @@ test('home search keeps only google, bing, and local engines', () => {
   assert.match(source, /window\.location\.href = url;/);
   assert.doesNotMatch(source, /window\.open\(url, '_blank'\)/);
   assert.match(source, /if \(e\.isComposing \|\| e\.keyCode === 229\) return;/);
+  assert.match(source, /firstInput\.focus\(\{ preventScroll: true \}\);/);
 });
 
 test('custom wallpaper input resists browser and password-manager autofill', () => {

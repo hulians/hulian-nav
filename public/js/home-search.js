@@ -163,6 +163,13 @@
       });
     });
 
+    requestAnimationFrame(() => {
+      const firstInput = searchInputs[0];
+      if (!firstInput) return;
+      if (document.activeElement && document.activeElement !== document.body) return;
+      firstInput.focus({ preventScroll: true });
+    });
+
     updateHeading();
   };
 })();
