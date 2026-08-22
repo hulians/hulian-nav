@@ -438,12 +438,6 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
 }
 
 /* 分类导航：单行直接横向滚动，不再展示省略号折叠 */
-.horizontal-category-nav-shell,
-#horizontalCategoryNav {
-  overflow: visible !important;
-}
-
-
 #horizontalCategoryNav.is-multi-line {
   flex-wrap: wrap;
 }

@@ -274,6 +274,7 @@ test('home category navigation can render multiple rows without more button', as
   const html = await renderHome([
     { key: 'home_category_flow', value: 'multi_line' },
   ]);
+  const css = readFileSync('public/css/style.css', 'utf8');
 
   assert.equal(html.includes('id="horizontalCategoryNav"'), true);
   assert.equal(html.includes('overflow-x-auto'), true);
@@ -281,6 +282,8 @@ test('home category navigation can render multiple rows without more button', as
   assert.equal(html.includes('id="horizontalMoreWrapper"'), false);
   assert.equal(html.includes('id="horizontalMoreBtn"'), false);
   assert.equal(html.includes('max-height: 60px'), false);
+  assert.match(css, /#horizontalCategoryNav\s*\{[^}]*overflow-x:\s*auto/);
+  assert.doesNotMatch(css, /#horizontalCategoryNav\s*\{[^}]*overflow:\s*visible\s*!important/);
 });
 
 test('home category navigation can render in the left sidebar', async () => {
