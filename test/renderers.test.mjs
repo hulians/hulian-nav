@@ -369,6 +369,8 @@ test('home search keeps only google, bing, and local engines', () => {
   assert.match(source, /case 'bing': url = `https:\/\/www\.bing\.com\/search\?q=/);
   assert.doesNotMatch(source, /github/);
   assert.doesNotMatch(source, /baidu/);
+  assert.match(source, /window\.location\.href = url;/);
+  assert.doesNotMatch(source, /window\.open\(url, '_blank'\)/);
 });
 
 test('custom wallpaper input resists browser and password-manager autofill', () => {

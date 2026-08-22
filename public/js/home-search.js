@@ -156,7 +156,7 @@
               case 'google': url = `https://www.google.com/search?q=${encodeURIComponent(query)}`; break;
               case 'bing': url = `https://www.bing.com/search?q=${encodeURIComponent(query)}`; break;
             }
-            if (url) window.open(url, '_blank');
+            if (url) window.location.href = url;
           }
         }
       });
