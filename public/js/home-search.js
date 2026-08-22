@@ -70,8 +70,7 @@
       let placeholder = '搜索书签...';
       switch (engine) {
         case 'google': placeholder = 'Google 搜索...'; break;
-        case 'baidu': placeholder = '百度搜索...'; break;
-        case 'github': placeholder = 'Github 搜索...'; break;
+        case 'bing': placeholder = 'Bing 搜索...'; break;
       }
 
       searchInputs.forEach(input => {
@@ -117,10 +116,6 @@
 
     if (engineOptions.length > 0) {
       currentSearchEngine = localStorage.getItem('search_engine') || 'local';
-      if (currentSearchEngine === 'bing') {
-        currentSearchEngine = 'github';
-        localStorage.setItem('search_engine', currentSearchEngine);
-      }
       updateSearchEngineUI(currentSearchEngine);
     } else {
       localStorage.removeItem('search_engine');
@@ -159,8 +154,7 @@
             let url = '';
             switch (currentSearchEngine) {
               case 'google': url = `https://www.google.com/search?q=${encodeURIComponent(query)}`; break;
-              case 'baidu': url = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`; break;
-              case 'github': url = `https://github.com/search?q=${encodeURIComponent(query)}`; break;
+              case 'bing': url = `https://www.bing.com/search?q=${encodeURIComponent(query)}`; break;
             }
             if (url) window.open(url, '_blank');
           }

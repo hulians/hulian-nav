@@ -281,10 +281,9 @@ export async function onRequest(context) {
   // === 13. 搜索引擎选项 ===
   const searchEngineOptions = S.home_search_engine_enabled ? `
     <div class="flex justify-center items-center gap-3 mb-4 text-sm select-none search-engine-wrapper">
-        <label class="search-engine-option active" data-engine="local"><span>站内</span></label>
         <label class="search-engine-option" data-engine="google"><span>Google</span></label>
-        <label class="search-engine-option" data-engine="baidu"><span>Baidu</span></label>
-        <label class="search-engine-option" data-engine="github"><span>Github</span></label>
+        <label class="search-engine-option" data-engine="bing"><span>Bing</span></label>
+        <label class="search-engine-option active" data-engine="local"><span>站内</span></label>
     </div>` : '';
 
   // === 14. Header HTML ===
@@ -306,22 +305,13 @@ export async function onRequest(context) {
     : 'horizontal-category-nav-shell relative mx-auto';
   const horizontalCategoryNavJustifyClass = categoryFlow === 'multi_line' ? 'justify-start' : 'justify-center';
   // 单行：nowrap + 宽度折叠（与预览一致）；多行：wrap 且无 more
-  const horizontalCategoryNavWrapClass = categoryFlow === 'multi_line' ? 'flex-wrap' : 'flex-nowrap';
-  // 单行也用 overflow-visible：overflow-hidden 会裁切多级下拉与「更多」弹出层
-  const horizontalCategoryNavOverflowClass = 'overflow-visible';
-  const horizontalCategoryNavFlowClass = categoryFlow === 'multi_line' ? 'is-multi-line' : 'is-single-line';
-  const horizontalMoreHtml = categoryFlow === 'multi_line' ? '' : `
-          <div id="horizontalMoreWrapper" class="relative hidden">
-            <button id="horizontalMoreBtn" class="nav-btn inactive">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" /></svg>
-            </button>
-            <div id="horizontalMoreDropdown" class="dropdown-menu hidden absolute mt-2 w-auto z-50"></div>
-          </div>`;
+  const horizontalCategoryNavWrapClass = 'flex-nowrap';
+  const horizontalCategoryNavOverflowClass = 'overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar';
+  const horizontalCategoryNavFlowClass = 'is-single-line';
   const horizontalCategoryNavHtml = `
       <div class="${horizontalCategoryNavShellClass}">
         <div id="horizontalCategoryNav" class="flex ${horizontalCategoryNavWrapClass} ${horizontalCategoryNavJustifyClass} items-center gap-3 ${horizontalCategoryNavOverflowClass} ${horizontalCategoryNavFlowClass} transition-all duration-300">
           ${horizontalCatalogMarkup}
-          ${horizontalMoreHtml}
         </div>
       </div>`;
 

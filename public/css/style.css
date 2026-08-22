@@ -423,16 +423,23 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#horizontalCategoryNav::-webkit-scrollbar {
+  display: none;
 }
 
 #horizontalCategoryNav.is-single-line {
   flex-wrap: nowrap;
 }
 
-/* 分类导航：允许多级下拉与「更多」弹出层溢出显示 */
+/* 分类导航：单行直接横向滚动，不再展示省略号折叠 */
 .horizontal-category-nav-shell,
-#horizontalCategoryNav,
-#horizontalMoreWrapper {
+#horizontalCategoryNav {
   overflow: visible !important;
 }
 

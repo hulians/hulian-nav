@@ -566,10 +566,9 @@
                     <p data-preview-role="siteDescription">一个优雅、快速、易于部署的书签收藏与分享平台</p>
                   </div>
                   <div class="live-search-engines" data-preview-role="searchEngines">
-                    <label class="search-engine-option active" data-engine="local"><span>站内</span></label>
                     <label class="search-engine-option" data-engine="google"><span>Google</span></label>
-                    <label class="search-engine-option" data-engine="baidu"><span>Baidu</span></label>
-                    <label class="search-engine-option" data-engine="github"><span>Github</span></label>
+                    <label class="search-engine-option" data-engine="bing"><span>Bing</span></label>
+                    <label class="search-engine-option active" data-engine="local"><span>站内</span></label>
                   </div>
                   <div class="live-search-box">
                     <input type="text" name="search" placeholder="搜索书签..."
@@ -591,23 +590,6 @@
 
                 <section class="live-card-grid" data-preview-role="cardGrid"></section>
 
-                <footer class="live-preview-footer" data-preview-role="footer">
-                  <div class="live-preview-footer-inner">
-                    <span class="live-preview-footer-link">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path
-                          d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
-                        </path>
-                        <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                      </svg>
-                      <span>Github</span>
-                    </span>
-                    <span class="live-preview-footer-separator">|</span>
-                    <p>© <span data-preview-role="footerYear">2026</span> <span data-preview-role="footerText">曾梦想仗剑走天涯</span></p>
-                  </div>
-                </footer>
               </main>
             </div>
           </div>
@@ -719,7 +701,7 @@
                 <div class="flex items-center justify-between">
                   <label for="searchEngineSwitch"
                     class="cursor-pointer select-none text-gray-700 font-medium text-sm">启用站外搜索
-                    (Google/Baidu/Github)</label>
+                    (Google/Bing/站内)</label>
                   <label class="switch scale-75 origin-right">
                     <input type="checkbox" id="searchEngineSwitch">
                     <span class="slider round"></span>

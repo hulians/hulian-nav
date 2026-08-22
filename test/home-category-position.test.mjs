@@ -81,7 +81,7 @@ test('home renders floating submission button only when public submission is ena
   assert.equal(enabledHtml.includes('addSiteBtnHorizontal'), false);
 });
 
-test('home category navigation defaults below the search box', async () => {
+test('home category navigation defaults below the search box without an overflow menu', async () => {
   const html = await renderHome();
   const searchIndex = html.indexOf('id="headerSearchInput"');
   const navIndex = html.indexOf('id="horizontalCategoryNav"');
@@ -91,7 +91,8 @@ test('home category navigation defaults below the search box', async () => {
   assert.ok(searchIndex < navIndex);
   assert.equal(html.includes('justify-center'), true);
   assert.equal(html.includes('horizontal-category-nav-shell is-top'), false);
-  assert.equal(html.includes('id="horizontalMoreWrapper"'), true);
+  assert.equal(html.includes('id="horizontalMoreWrapper"'), false);
+  assert.equal(html.includes('id="horizontalMoreBtn"'), false);
 });
 
 test('home category links use IDs and SSR accepts category ID query', async () => {
@@ -140,16 +141,13 @@ test('home uses style default wallpaper when custom wallpaper is empty', async (
   assert.doesNotMatch(customHtml, /main\.ssss\.nyc\.mn\/background\.webp/);
 });
 
-test('home footer text can be configured from settings', async () => {
-  const defaultHtml = await renderHome();
-  const configuredHtml = await renderHome([
-    { key: 'home_footer_text', value: 'Custom Footer' },
-  ]);
-  const year = new Date().getFullYear();
+test('home removes the footer entirely', async () => {
+  const html = await renderHome();
 
-  assert.equal(defaultHtml.includes(`© ${year} Unit Footer`), true);
-  assert.equal(configuredHtml.includes(`© ${year} Custom Footer`), true);
-  assert.equal(configuredHtml.includes(`© ${year} Unit Footer`), false);
+  assert.equal(html.includes('<footer'), false);
+  assert.equal(html.includes('Github'), false);
+  assert.equal(html.includes('©'), false);
+  assert.equal(html.includes('FOOTER_CLASS'), false);
 });
 
 test('home grid uses configured mobile card columns', async () => {
@@ -195,26 +193,26 @@ test('style three with category on top marks body class for compact top nav', as
   assert.match(html, /desktop-page-style3/);
 });
 
-test('style three keeps the standard search engine set and order', async () => {
+test('style three keeps the requested search engine set and order', async () => {
   const html = await renderHome([
     { key: 'layout_card_style', value: 'style3' },
     { key: 'home_search_engine_enabled', value: 'true' },
   ]);
 
-  const localIndex = html.indexOf('data-engine="local"');
   const googleIndex = html.indexOf('data-engine="google"');
-  const baiduIndex = html.indexOf('data-engine="baidu"');
-  const githubIndex = html.indexOf('data-engine="github"');
+  const bingIndex = html.indexOf('data-engine="bing"');
+  const localIndex = html.indexOf('data-engine="local"');
 
+  assert.ok(googleIndex > -1);
+  assert.ok(bingIndex > -1);
   assert.ok(localIndex > -1);
-  assert.ok(localIndex < googleIndex);
-  assert.ok(googleIndex < baiduIndex);
-  assert.ok(baiduIndex < githubIndex);
-  assert.match(html, /data-engine="local"><span>站内<\/span>/);
+  assert.ok(googleIndex < bingIndex);
+  assert.ok(bingIndex < localIndex);
   assert.match(html, /data-engine="google"><span>Google<\/span>/);
-  assert.match(html, /data-engine="baidu"><span>Baidu<\/span>/);
-  assert.match(html, /data-engine="github"><span>Github<\/span>/);
-  assert.doesNotMatch(html, /data-engine="bing"/);
+  assert.match(html, /data-engine="bing"><span>Bing<\/span>/);
+  assert.match(html, /data-engine="local"><span>站内<\/span>/);
+  assert.doesNotMatch(html, /data-engine="baidu"/);
+  assert.doesNotMatch(html, /data-engine="github"/);
 });
 
 test('external search inherits desktop and mobile bookmark title colors', async () => {
@@ -240,7 +238,7 @@ test('home card radius and frosted blur preserve zero values', async () => {
   assert.match(html, /@media \(max-width: 767px\) \{ :root \{ --card-radius: 0px; --frosted-glass-blur: 0px; \} \}/);
 });
 
-test('home category navigation can render at the top', async () => {
+test('home category navigation can render at the top without a more button', async () => {
   const html = await renderHome([
     { key: 'home_category_position', value: 'top' },
   ]);
@@ -251,6 +249,8 @@ test('home category navigation can render at the top', async () => {
   assert.ok(bodyDescriptionIndex > -1);
   assert.ok(navIndex < bodyDescriptionIndex);
   assert.equal(html.includes('horizontal-category-nav-shell is-top'), true);
+  assert.equal(html.includes('horizontalMoreWrapper'), false);
+  assert.equal(html.includes('horizontalMoreBtn'), false);
 });
 
 test('home category navigation can render above the search box', async () => {
@@ -276,7 +276,7 @@ test('home category navigation can render multiple rows without more button', as
   ]);
 
   assert.equal(html.includes('id="horizontalCategoryNav"'), true);
-  assert.equal(html.includes('overflow-visible'), true);
+  assert.equal(html.includes('overflow-x-auto'), true);
   assert.equal(html.includes('justify-start'), true);
   assert.equal(html.includes('id="horizontalMoreWrapper"'), false);
   assert.equal(html.includes('id="horizontalMoreBtn"'), false);
