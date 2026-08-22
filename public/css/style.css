@@ -324,6 +324,7 @@ body.custom-wallpaper .admin-action-icon:hover {
   transition: all 0.2s ease; border: 1px solid transparent;
   cursor: pointer; text-decoration: none; height: 2.5rem;
   min-width: calc(4em + 2rem);
+  scroll-snap-align: start;
 }
 
 #horizontalMoreBtn {
@@ -362,7 +363,45 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
 .horizontal-category-nav-shell {
   width: min(100%, 64rem); /* max-w-5xl */
   max-width: 100%;
+  position: relative;
   box-sizing: border-box;
+}
+
+.horizontal-category-nav-shell::before,
+.horizontal-category-nav-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3rem;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.horizontal-category-nav-shell::before {
+  left: 0;
+  background: linear-gradient(to right, var(--nav-fade-bg, #f6ede1) 18%, rgba(246, 237, 225, 0));
+}
+
+.horizontal-category-nav-shell::after {
+  right: 0;
+  background: linear-gradient(to left, var(--nav-fade-bg, #f6ede1) 18%, rgba(246, 237, 225, 0));
+}
+
+.dark .horizontal-category-nav-shell::before {
+  background: linear-gradient(to right, var(--nav-fade-bg, #111827) 18%, rgba(17, 24, 39, 0));
+}
+
+.dark .horizontal-category-nav-shell::after {
+  background: linear-gradient(to left, var(--nav-fade-bg, #111827) 18%, rgba(17, 24, 39, 0));
+}
+
+.custom-wallpaper .horizontal-category-nav-shell::before {
+  background: linear-gradient(to right, var(--nav-fade-bg, rgba(255, 255, 255, 0.92)) 18%, rgba(255, 255, 255, 0));
+}
+
+.custom-wallpaper .horizontal-category-nav-shell::after {
+  background: linear-gradient(to left, var(--nav-fade-bg, rgba(255, 255, 255, 0.92)) 18%, rgba(255, 255, 255, 0));
 }
 
 #horizontalCategoryNav {
@@ -371,6 +410,9 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
   box-sizing: border-box;
   overflow-x: auto;
   overflow-y: visible;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 1.25rem;
+  touch-action: pan-x;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -385,14 +427,14 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
 }
 
 .horizontal-category-nav-shell.is-top {
-  padding-left: 4.5rem;
-  padding-right: 10.5rem;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media (max-width: 720px) {
   .horizontal-category-nav-shell.is-top {
-    padding-left: 3.75rem;
-    padding-right: 8.5rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -1244,9 +1286,8 @@ body .search-engine-option.active {
     width: min(100%, 64rem);
     margin-left: auto;
     margin-right: auto;
-    /* 左右避开角标：左预留侧栏按钮，右预留主题+后台 */
-    padding-left: 4.5rem !important;
-    padding-right: 7.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   body.desktop-page-style3.category-pos-top #horizontalCategoryNav {
@@ -1463,8 +1504,8 @@ body .search-engine-option.active {
   }
 
   body.mobile-page-style3.category-pos-top .horizontal-category-nav-shell.is-top {
-    padding-left: 3.5rem !important;
-    padding-right: 6.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   body.mobile-page-style3 .home-stats-row {
