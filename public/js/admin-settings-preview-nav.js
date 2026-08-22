@@ -3,18 +3,6 @@
   const shared = ns.previewShared;
   const data = ns.previewData;
 
- function getMoreCategoryHtml(isActive) {
-    return `
-      <div class="live-category-item live-category-more-wrapper">
-        <span class="live-category-more ${isActive ? 'active' : ''}" aria-label="更多分类" role="button" tabindex="0" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-          </svg>
-        </span>
-        <div class="live-category-dropdown live-category-more-dropdown"></div>
-      </div>`;
-  }
-
  function getSidebarCategoryIcon(name) {
     if (name === '全部') {
       return `
@@ -72,66 +60,6 @@
       ${childHtml}`;
   }
 
- function collapseOverflowCategories(container) {
-    // 与首页一致：单行最多 8 个按钮 = 根分类（含「全部」）+ 「更多」
-    // 有「更多」时根分类最多 7 个；顶部/搜索框上/下位置数量一致
-    const MAX_VISIBLE_BUTTONS = 8;
-    const MAX_VISIBLE_ROOT_WITH_MORE = MAX_VISIBLE_BUTTONS - 1; // 7
-    const availableWidth = container?.clientWidth || container?.parentElement?.clientWidth || 0;
-    const getVisibleRootItems = () => Array.from(container.children).filter(
-      item => !item.classList.contains('live-category-more-wrapper')
-    );
-    const measureItemsWidth = () => {
-      const styles = window.getComputedStyle(container);
-      const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
-      return Array.from(container.children).reduce((total, item, index) => (
-        total + item.offsetWidth + (index > 0 ? gap : 0)
-      ), 0);
-    };
-
-    if (!availableWidth) return;
-    const rootCount = getVisibleRootItems().length;
-    // 优先按数量统一：>7 才折叠，保证各位置都是 7+更多=8（窄屏再按宽度收）
-    if (rootCount <= MAX_VISIBLE_ROOT_WITH_MORE && measureItemsWidth() <= availableWidth) return;
-
-    container.insertAdjacentHTML('beforeend', getMoreCategoryHtml(false));
-    const moreWrapper = container.querySelector('.live-category-more-wrapper');
-    const moreButton = container.querySelector('.live-category-more');
-    const moreDropdown = container.querySelector('.live-category-more-dropdown');
-    const visibleItems = Array.from(container.children).filter(item => item !== moreWrapper);
-    let hiddenHasActive = false;
-
-    while (visibleItems.length > MAX_VISIBLE_ROOT_WITH_MORE) {
-      const hiddenItem = visibleItems.pop();
-      if (!hiddenItem) break;
-      hiddenHasActive = hiddenHasActive
-        || hiddenItem.classList.contains('active')
-        || Boolean(hiddenItem.querySelector?.('.active'));
-      moreDropdown?.insertBefore(hiddenItem, moreDropdown.firstChild);
-    }
-
-    while (visibleItems.length > 1 && measureItemsWidth() > availableWidth) {
-      const hiddenItem = visibleItems.pop();
-      if (!hiddenItem) break;
-      hiddenHasActive = hiddenHasActive
-        || hiddenItem.classList.contains('active')
-        || Boolean(hiddenItem.querySelector?.('.active'));
-      moreDropdown?.insertBefore(hiddenItem, moreDropdown.firstChild);
-    }
-
-    // 折叠区仅剩 1 个分类时直接展示，不为 1 个分类留「···」：
-    // 「···」只比一个分类按钮窄约 48px，折叠换不来实际空间
-    if (moreDropdown?.children.length === 1 && moreWrapper) {
-      container.insertBefore(moreDropdown.firstElementChild, moreWrapper);
-      moreWrapper.remove();
-      return;
-    }
-
-    if (moreButton) {
-      moreButton.classList.toggle('active', hiddenHasActive);
-    }
-  }
-
  function renderCategoryNav(container, categoryTree, activeName, includeAll = true, options = {}) {
     if (!container) return;
     const active = activeName || '全部';
@@ -154,10 +82,6 @@
           </div>`
         : '';
       container.innerHTML = `${allHtml}${nodes.map(node => renderHorizontalCategoryItem(node, activeName, 0)).join('')}`;
-    }
-
-    if (options.flow === 'single_line') {
-      collapseOverflowCategories(container);
     }
   }
 

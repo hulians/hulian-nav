@@ -258,9 +258,6 @@
     const statsText = root.querySelector('[data-preview-role="statsText"]');
     const hitokotoText = root.querySelector('[data-preview-role="hitokotoText"]');
     const cardGrid = root.querySelector('[data-preview-role="cardGrid"]');
-    const footerYear = root.querySelector('[data-preview-role="footerYear"]');
-    const footerText = root.querySelector('[data-preview-role="footerText"]');
-
     root.classList.toggle('is-horizontal', isHorizontal);
     root.classList.toggle('has-wallpaper', !!settings.wallpaper);
     root.classList.toggle('category-top', settings.categoryPosition === 'top');
@@ -318,9 +315,9 @@
 
     if (categoryNav) {
       categoryNav.style.display = (isHorizontal && !isMobilePreview) ? 'flex' : 'none';
-      categoryNav.classList.toggle('single-line', settings.categoryFlow === 'single_line');
-      categoryNav.classList.toggle('multi-line', settings.categoryFlow === 'multi_line');
-      nav.renderCategoryNav(categoryNav, categoryTree, activeCategory, true, { flow: settings.categoryFlow });
+      categoryNav.classList.add('single-line');
+      categoryNav.classList.remove('multi-line');
+      nav.renderCategoryNav(categoryNav, categoryTree, activeCategory, true);
     }
     nav.renderCategoryNav(sidebarCategories, categoryTree, activeCategory, true, { variant: 'sidebar' });
     updateHeroOrder(root, settings);
@@ -340,9 +337,6 @@
       hitokotoText.style.display = settings.hideHitokoto ? 'none' : '';
       shared.applyTextStyle(hitokotoText, settings.hitokotoFont, settings.hitokotoSize, settings.hitokotoColor);
     }
-    if (footerYear) footerYear.textContent = String(new Date().getFullYear());
-    if (footerText) footerText.textContent = settings.footerText;
-
     renderPreviewCards(cardGrid, settings, previewState);
     if (
       livePreviewPendingCardAnimation
