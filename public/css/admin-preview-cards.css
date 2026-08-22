@@ -18,58 +18,6 @@
   padding: 0 1.35rem 1.35rem;
 }
 
-.live-preview-footer {
-  margin-top: auto;
-  padding: 2rem 1.5rem;
-  border-top: 1px solid rgba(219, 234, 254, 0.7);
-  background: rgba(255, 255, 255, 0.8);
-  /* 风格一/二：黑色页脚文字 */
-  color: #111827;
-  text-align: center;
-}
-
-.home-live-preview.has-wallpaper .live-preview-footer {
-  border: 0;
-  background: transparent;
-  /* 有壁纸时风格一/二仍用黑色，保证浅色壁纸可读 */
-  color: #111827;
-}
-
-.live-preview-footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.live-preview-footer-link {
-  display: inline-flex;
-  align-items: center;
-  color: inherit;
-  transition: color 0.2s ease;
-}
-
-.live-preview-footer-link svg {
-  flex: 0 0 auto;
-  margin-right: 0.25rem;
-}
-
-.live-preview-footer-separator {
-  color: rgba(17, 24, 39, 0.35);
-}
-
-.live-preview-footer p {
-  margin: 0;
-}
-
-/* 与 eooce/Nav-Item 页脚字体一致：桌面 14px，移动端 0.7rem */
-.live-preview-footer,
-.live-preview-footer a,
-.live-preview-footer p,
-.live-preview-footer span {
-  font-size: 14px;
-}
-
 .live-card {
   display: flex;
   flex-direction: column;
@@ -435,22 +383,6 @@
   display: none !important;
 }
 
-.home-live-preview.uses-card-style-3 .live-preview-footer {
-  border: 0;
-  background: transparent;
-  /* 风格三：白色页脚文字 */
-  color: #ffffff;
-}
-
-.home-live-preview.uses-card-style-3 .live-preview-footer-link,
-.home-live-preview.uses-card-style-3 .live-preview-footer p {
-  color: inherit;
-}
-
-.home-live-preview.uses-card-style-3 .live-preview-footer-separator {
-  color: rgba(255, 255, 255, 0.35);
-}
-
 .home-live-preview.uses-card-style-3 [data-preview-role="cardGrid"] {
   width: min(100%, 55rem);
   margin-right: auto;
@@ -595,29 +527,6 @@
 .home-live-preview[data-device="mobile"] .live-card-grid {
   gap: 0.65rem;
   padding: 0 1rem 1rem;
-}
-
-.home-live-preview[data-device="mobile"] .live-preview-footer {
-  margin-top: 2rem;
-  padding: 1.5rem 1rem;
-}
-
-/* 手机预览不区分卡片风格，页脚统一使用白色文字 */
-.home-live-preview[data-device="mobile"] .live-preview-footer,
-.home-live-preview[data-device="mobile"] .live-preview-footer a,
-.home-live-preview[data-device="mobile"] .live-preview-footer p,
-.home-live-preview[data-device="mobile"] .live-preview-footer span {
-  color: #ffffff !important;
-  font-size: 0.7rem;
-}
-
-.home-live-preview[data-device="mobile"] .live-preview-footer-separator {
-  color: rgba(255, 255, 255, 0.35) !important;
-}
-
-.home-live-preview[data-device="mobile"] .live-preview-footer-inner {
-  flex-wrap: wrap;
-  gap: 0.65rem;
 }
 
 .settings-panel-pane #previewWrapper {

@@ -258,7 +258,7 @@ test('footer is removed from the home page styles and template output', () => {
   assert.doesNotMatch(homeCss, /#app-scroll > \.main-content > footer/);
   assert.doesNotMatch(homeCss, /body\.desktop-page-style3 footer/);
   assert.doesNotMatch(homeCss, /body\.mobile-page-style3 footer/);
-  assert.match(previewCss, /\.home-live-preview\[data-device="mobile"\] \.live-preview-footer,[\s\S]*?color:\s*#ffffff\s*!important;/);
+  assert.doesNotMatch(previewCss, /\.live-preview-footer/);
 });
 
 test('style three search focus suppresses the transient Tailwind ring', () => {
@@ -350,7 +350,7 @@ test('bookmark title settings explain and drive external search colors only', ()
   assert.doesNotMatch(previewSource, /searchEngines\.style\.(?:fontFamily|fontSize)/);
 });
 
-test('home and admin preview use a sticky footer layout', () => {
+test('home and admin preview do not show a footer area', () => {
   const homeCss = readFileSync('public/css/style.css', 'utf8');
   const previewShellCss = readFileSync('public/css/admin-preview-shell.css', 'utf8');
   const previewCardCss = readFileSync('public/css/admin-preview-cards.css', 'utf8');
@@ -358,7 +358,7 @@ test('home and admin preview use a sticky footer layout', () => {
   assert.doesNotMatch(homeCss, /#app-scroll > \.main-content > footer/);
   assert.match(homeCss, /#horizontalCategoryNav\.is-single-line/);
   assert.match(previewShellCss, /\.live-preview-page \{[\s\S]*?display: flex;[\s\S]*?flex-direction: column;/);
-  assert.match(previewCardCss, /\.live-preview-footer \{[\s\S]*?margin-top: auto;/);
+  assert.doesNotMatch(previewCardCss, /\.live-preview-footer \{/);
 });
 
 test('home search keeps only google, bing, and local engines', () => {
