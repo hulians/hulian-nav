@@ -163,12 +163,16 @@
       });
     });
 
-    requestAnimationFrame(() => {
-      const firstInput = searchInputs[0];
+    const focusSearchInput = () => {
+      const visibleInputs = Array.from(searchInputs).filter(input => input.offsetParent !== null);
+      const firstInput = visibleInputs[0] || searchInputs[0];
       if (!firstInput) return;
-      if (document.activeElement && document.activeElement !== document.body) return;
+      if (document.activeElement && document.activeElement !== document.body && document.activeElement !== firstInput) return;
       firstInput.focus({ preventScroll: true });
-    });
+    };
+
+    requestAnimationFrame(focusSearchInput);
+    window.addEventListener('pageshow', focusSearchInput);
 
     updateHeading();
   };
