@@ -89,7 +89,7 @@ test('home category navigation defaults below the search box without an overflow
   assert.ok(searchIndex > -1);
   assert.ok(navIndex > -1);
   assert.ok(searchIndex < navIndex);
-  assert.equal(html.includes('justify-center'), true);
+  assert.equal(html.includes('justify-start'), true);
   assert.equal(html.includes('horizontal-category-nav-shell is-top'), false);
   assert.equal(html.includes('id="horizontalMoreWrapper"'), false);
   assert.equal(html.includes('id="horizontalMoreBtn"'), false);

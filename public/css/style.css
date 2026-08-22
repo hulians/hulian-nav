@@ -9,60 +9,6 @@
   display: none;
 }
 
-/* 粘性页脚：内容不足一屏时推到底部，内容较多时自然跟随文档流 */
-#app-scroll > .main-content {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-}
-
-#app-scroll > .main-content > header,
-#app-scroll > .main-content > div,
-#app-scroll > .main-content > section {
-  width: 100%;
-  flex-shrink: 0;
-}
-
-#app-scroll > .main-content > footer {
-  flex-shrink: 0;
-  margin-top: auto;
-  /* 与 eooce/Nav-Item 页脚字体一致：桌面 14px，移动端 0.7rem */
-  font-size: 14px;
-  /* 桌面风格一/二：黑色；桌面风格三在下方 media 中覆盖为白色 */
-  color: #111827;
-}
-
-/* 仅继承字号，不锁死 color，避免盖掉 hover:text-primary-500 */
-#app-scroll > .main-content > footer a,
-#app-scroll > .main-content > footer p,
-#app-scroll > .main-content > footer span {
-  font-size: inherit;
-}
-
-#app-scroll > .main-content > footer .text-gray-300 {
-  color: rgba(17, 24, 39, 0.35);
-}
-
-@media (max-width: 768px) {
-  #app-scroll > .main-content > footer {
-    font-size: 0.7rem;
-  }
-}
-
-/* 手机端不区分卡片风格，页脚统一使用白色文字 */
-@media (max-width: 767px) {
-  #app-scroll > .main-content > footer,
-  #app-scroll > .main-content > footer a,
-  #app-scroll > .main-content > footer p,
-  #app-scroll > .main-content > footer span {
-    color: #ffffff !important;
-  }
-
-  #app-scroll > .main-content > footer .text-gray-300 {
-    color: rgba(255, 255, 255, 0.35) !important;
-  }
-}
-
 /* ========================================= */
 /*  Theme Switch Animation (View Transitions)*/
 /* ========================================= */
@@ -435,11 +381,7 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
 
 #horizontalCategoryNav.is-single-line {
   flex-wrap: nowrap;
-}
-
-/* 分类导航：单行直接横向滚动，不再展示省略号折叠 */
-#horizontalCategoryNav.is-multi-line {
-  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .horizontal-category-nav-shell.is-top {
@@ -1366,21 +1308,6 @@ body .search-engine-option.active {
     padding-right: 0.5rem;
   }
 
-  body.desktop-page-style3 footer,
-  body.desktop-page-style3 footer a,
-  body.desktop-page-style3 footer p {
-    color: #ffffff !important;
-  }
-
-  body.desktop-page-style3 footer {
-    background: transparent !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-  }
-
-  body.desktop-page-style3 footer .text-gray-300 {
-    color: rgba(255, 255, 255, 0.35) !important;
-  }
 }
 
 /* 手机风格三：搜索/外部搜索引擎与桌面风格三对齐 */
@@ -1457,8 +1384,8 @@ body .search-engine-option.active {
   body.mobile-page-style3 #horizontalCategoryNav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.1rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
   }
 
   body.mobile-page-style3 .nav-btn,
@@ -1550,21 +1477,6 @@ body .search-engine-option.active {
     font-size: 0.875rem;
   }
 
-  body.mobile-page-style3 footer,
-  body.mobile-page-style3 footer a,
-  body.mobile-page-style3 footer p {
-    color: #ffffff !important;
-  }
-
-  body.mobile-page-style3 footer {
-    background: transparent !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-  }
-
-  body.mobile-page-style3 footer .text-gray-300 {
-    color: rgba(255, 255, 255, 0.35) !important;
-  }
 }
 
 /* 风格三下拉分类（仅桌面水平分类）：参考 eooce/Nav-Item 透明毛玻璃 + 白字蓝高亮
@@ -1786,50 +1698,6 @@ html:not(.dark) body.custom-wallpaper .sidebar {
 .dark #horizontalMoreDropdown .dropdown-item { color: #d1d5db; }
 .dark #horizontalMoreDropdown .dropdown-item:hover { background-color: rgba(255, 255, 255, 0.1); color: #fff; }
 .dark #horizontalMoreDropdown .dropdown-item.active { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-
-/* 针对首页“更多”菜单的特殊处理 */
-/* 1. 确保一级菜单以三个点为中心弹出 */
-#horizontalMoreDropdown {
-  left: 50% !important;
-  right: auto !important;
-  transform: translateX(-50%) translateY(4px) !important;
-  z-index: 100 !important; /* 极大提高层级，确保在所有卡片之上 */
-}
-
-#horizontalMoreDropdown:not(.hidden) {
-  transform: translateX(-50%) translateY(0) scale(1) !important;
-}
-
-/* 2. 确保子菜单向左弹出，防止超出屏幕右侧 */
-#horizontalMoreDropdown .dropdown-menu {
-  left: auto !important;
-  right: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0rem !important; /* 消除间距 */
-  transform: translateX(4px) translateY(0) !important;
-  z-index: 110 !important;
-}
-
-/* 增加更宽的透明衔接层，防止鼠标移动到子菜单时因为微小间隙导致菜单消失 */
-#horizontalMoreDropdown .menu-item-wrapper > .dropdown-menu::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -20px; /* 向右延伸 20px 覆盖感应区 */
-  width: 20px;
-  height: 100%;
-  background: transparent;
-}
-
-#horizontalMoreDropdown .menu-item-wrapper:hover > .dropdown-menu {
-  transform: translateX(0) translateY(0) !important;
-}
-
-/* 3. 当下拉菜单打开时，禁用下方卡片的放大效果，防止干扰 */
-body.menu-open .site-card:hover {
-  transform: none !important;
-  z-index: 1 !important;
-}
 
 /* ========================================= */
 /*  General Dropdown Item Styles             */

@@ -245,20 +245,19 @@ test('style three CSS keeps the compact glass navigation treatment', () => {
   assert.match(css, /max-width: 55rem/);
   assert.match(css, /html\.dark body\.custom-wallpaper \.site-card\.style-3\.frosted-glass-effect/);
   assert.match(css, /body\.desktop-page-style3 \.home-search-shell/);
-  assert.match(css, /body\.desktop-page-style3 footer/);
+  assert.doesNotMatch(css, /body\.desktop-page-style3 footer/);
   assert.match(css, /body\.mobile-page-style3\s*\{[^}]*--search-engine-text-color/);
   assert.match(css, /body\.mobile-page-style3 \.home-search-shell/);
-  assert.match(css, /body\.mobile-page-style3 footer/);
+  assert.doesNotMatch(css, /body\.mobile-page-style3 footer/);
 });
 
-test('footer colors follow desktop card style and stay white on mobile', () => {
+test('footer is removed from the home page styles and template output', () => {
   const homeCss = readFileSync('public/css/style.css', 'utf8');
   const previewCss = readFileSync('public/css/admin-preview-cards.css', 'utf8');
 
-  assert.match(homeCss, /#app-scroll > \.main-content > footer \{[\s\S]*?color:\s*#111827;/);
-  assert.match(homeCss, /@media \(min-width:\s*768px\)[\s\S]*?body\.desktop-page-style3 footer,[\s\S]*?color:\s*#ffffff\s*!important;/);
-  assert.match(homeCss, /@media \(max-width:\s*767px\)[\s\S]*?#app-scroll > \.main-content > footer,[\s\S]*?color:\s*#ffffff\s*!important;/);
-  assert.doesNotMatch(homeCss, /html\.dark body:not\(\.custom-wallpaper\) #app-scroll > \.main-content > footer/);
+  assert.doesNotMatch(homeCss, /#app-scroll > \.main-content > footer/);
+  assert.doesNotMatch(homeCss, /body\.desktop-page-style3 footer/);
+  assert.doesNotMatch(homeCss, /body\.mobile-page-style3 footer/);
   assert.match(previewCss, /\.home-live-preview\[data-device="mobile"\] \.live-preview-footer,[\s\S]*?color:\s*#ffffff\s*!important;/);
 });
 
@@ -275,10 +274,11 @@ test('category nav keeps overflow visible so dropdowns are not clipped', () => {
   const indexSource = readFileSync('functions/index.js', 'utf8');
   const navSource = readFileSync('public/js/home-category-nav.js', 'utf8');
 
-  assert.match(homeCss, /#horizontalCategoryNav[\s\S]*?overflow:\s*visible\s*!important/);
-  assert.match(indexSource, /horizontalCategoryNavOverflowClass = 'overflow-visible'/);
-  // 打开「更多」时跳过 checkOverflow，避免 reset 拆掉弹出层
-  assert.match(navSource, /dropdown\.classList\.contains\('hidden'\)/);
+  assert.match(homeCss, /#horizontalCategoryNav[\s\S]*?overflow-x:\s*auto/);
+  assert.match(homeCss, /#horizontalCategoryNav\.is-single-line[\s\S]*?justify-content:\s*flex-start/);
+  assert.match(indexSource, /horizontalCategoryNavOverflowClass = 'overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar'/);
+  assert.match(indexSource, /horizontalCategoryNavJustifyClass = 'justify-start'/);
+  assert.match(navSource, /navContainer\.style\.overflowX = 'auto'/);
 });
 
 test('horizontal category overflow matches preview width-based collapse', () => {
@@ -286,20 +286,10 @@ test('horizontal category overflow matches preview width-based collapse', () => 
   const homeCss = readFileSync('public/css/style.css', 'utf8');
   const indexSource = readFileSync('functions/index.js', 'utf8');
 
-  // 与后台预览一致：按可用宽度折叠，单行 nowrap
-  assert.match(source, /measureItemsWidth/);
-  assert.match(source, /MAX_VISIBLE_BUTTONS\s*=\s*8/);
-  assert.match(source, /MAX_VISIBLE_ROOT_WITH_MORE\s*=\s*MAX_VISIBLE_BUTTONS\s*-\s*1/);
-  // ≤7 个时仍要按宽度折叠，与预览一致
-  assert.match(source, /needsCollapse\(availableWidth\)/);
-  assert.match(source, /measureItemsWidth\(\) > availableWidth/);
-  const previewNav = readFileSync('public/js/admin-settings-preview-nav.js', 'utf8');
-  assert.match(previewNav, /MAX_VISIBLE_BUTTONS\s*=\s*8/);
-  assert.match(previewNav, /MAX_VISIBLE_ROOT_WITH_MORE/);
-  assert.match(source, /availableWidth/);
-  assert.match(source, /restoreCategoryFromDropdown/);
-  assert.match(source, /document\.fonts/);
-  assert.match(source, /ResizeObserver/);
+  assert.doesNotMatch(source, /measureItemsWidth/);
+  assert.doesNotMatch(source, /MAX_VISIBLE_BUTTONS/);
+  assert.doesNotMatch(source, /restoreCategoryFromDropdown/);
+  assert.doesNotMatch(source, /ResizeObserver/);
   assert.match(homeCss, /\.horizontal-category-nav-shell\s*\{[^}]*width:\s*min\(100%, 64rem\)/);
   assert.match(homeCss, /\.nav-btn\s*\{[^}]*min-width:\s*calc\(4em \+ 2rem\)/);
   assert.match(homeCss, /body\.desktop-page-style3[\s\S]*?\.nav-btn[\s\S]*?min-width:\s*calc\(4em \+ 2rem\)/);
@@ -311,10 +301,9 @@ test('horizontal category overflow matches preview width-based collapse', () => 
 test('style three top navigation keeps the single-line overflow menu available', () => {
   const css = readFileSync('public/css/style.css', 'utf8');
 
-  assert.doesNotMatch(css, /body\.desktop-page-style3\.category-pos-top #horizontalMoreWrapper\s*\{[^}]*display:\s*none\s*!important/);
-  assert.doesNotMatch(css, /body\.mobile-page-style3\.category-pos-top #horizontalMoreWrapper\s*\{[^}]*display:\s*none\s*!important/);
-  assert.doesNotMatch(css, /body\.desktop-page-style3\.category-pos-top #horizontalCategoryNav\s*\{[^}]*max-height:\s*none\s*!important/);
-  assert.doesNotMatch(css, /body\.mobile-page-style3\.category-pos-top #horizontalCategoryNav\s*\{[^}]*max-height:\s*none\s*!important/);
+  assert.doesNotMatch(css, /#horizontalMoreWrapper/);
+  assert.match(css, /body\.desktop-page-style3\.category-pos-top \.horizontal-category-nav-shell\.is-top/);
+  assert.match(css, /body\.mobile-page-style3\.category-pos-top \.horizontal-category-nav-shell\.is-top/);
 });
 
 test('style one and two top navigation aligns with the action row without changing button styles', () => {
@@ -366,19 +355,19 @@ test('home and admin preview use a sticky footer layout', () => {
   const previewShellCss = readFileSync('public/css/admin-preview-shell.css', 'utf8');
   const previewCardCss = readFileSync('public/css/admin-preview-cards.css', 'utf8');
 
-  assert.match(homeCss, /#app-scroll > \.main-content \{[\s\S]*?display: flex;[\s\S]*?min-height: 100%;/);
-  assert.match(homeCss, /#app-scroll > \.main-content > section \{[\s\S]*?width: 100%;[\s\S]*?flex-shrink: 0;/);
-  assert.match(homeCss, /#app-scroll > \.main-content > footer \{[\s\S]*?margin-top: auto;/);
+  assert.doesNotMatch(homeCss, /#app-scroll > \.main-content > footer/);
+  assert.match(homeCss, /#horizontalCategoryNav\.is-single-line/);
   assert.match(previewShellCss, /\.live-preview-page \{[\s\S]*?display: flex;[\s\S]*?flex-direction: column;/);
   assert.match(previewCardCss, /\.live-preview-footer \{[\s\S]*?margin-top: auto;/);
 });
 
-test('home search keeps the original engine behavior', () => {
+test('home search keeps only google, bing, and local engines', () => {
   const source = readFileSync('public/js/home-search.js', 'utf8');
 
-  assert.match(source, /currentSearchEngine === 'bing'/);
-  assert.match(source, /currentSearchEngine = 'github'/);
-  assert.doesNotMatch(source, /www\.bing\.com\/search/);
+  assert.match(source, /case 'google': url = `https:\/\/www\.google\.com\/search\?q=/);
+  assert.match(source, /case 'bing': url = `https:\/\/www\.bing\.com\/search\?q=/);
+  assert.doesNotMatch(source, /github/);
+  assert.doesNotMatch(source, /baidu/);
 });
 
 test('custom wallpaper input resists browser and password-manager autofill', () => {

@@ -268,7 +268,6 @@ export async function onRequest(context) {
   const submissionClass = submissionEnabled ? '' : '!hidden';
   const siteName = S.home_site_name || env.SITE_NAME || '灰色轨迹';
   const siteDescription = S.home_site_description || env.SITE_DESCRIPTION || '一个优雅、快速、易于部署的书签（网址）收藏与分享平台，完全基于 Cloudflare 全家桶构建';
-  const footerText = S.home_footer_text || env.FOOTER_TEXT || '曾梦想仗剑走天涯';
   const titleStyle = getStyleStr(S.home_title_size, S.home_title_color, S.home_title_font);
   const subtitleStyle = getStyleStr(S.home_subtitle_size, S.home_subtitle_color, S.home_subtitle_font);
   const statsStyle = getStyleStr(S.home_stats_size, S.home_stats_color, S.home_stats_font);
@@ -298,13 +297,11 @@ export async function onRequest(context) {
   };
   const categoryPosition = normalizeCategoryPosition(S.home_category_position, S.layout_menu_layout);
   const isHorizontalCategoryLayout = categoryPosition !== 'left';
-  const categoryFlow = S.home_category_flow === 'multi_line' ? 'multi_line' : 'single_line';
-  // 分类行宽度 max-w-5xl（64rem），按钮 min-width: 4em+2rem，单行约 8 个
+  // 首页分类栏统一使用横向滚动，避免溢出后折叠成“更多/三个点”
   const horizontalCategoryNavShellClass = categoryPosition === 'top'
     ? 'horizontal-category-nav-shell is-top relative mx-auto'
     : 'horizontal-category-nav-shell relative mx-auto';
-  const horizontalCategoryNavJustifyClass = categoryFlow === 'multi_line' ? 'justify-start' : 'justify-center';
-  // 单行：nowrap + 宽度折叠（与预览一致）；多行：wrap 且无 more
+  const horizontalCategoryNavJustifyClass = 'justify-start';
   const horizontalCategoryNavWrapClass = 'flex-nowrap';
   const horizontalCategoryNavOverflowClass = 'overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar';
   const horizontalCategoryNavFlowClass = 'is-single-line';
@@ -382,9 +379,6 @@ export async function onRequest(context) {
       </button>
     </div>`;
 
-  const footerClass = isCustomWallpaper
-    ? 'bg-transparent py-8 px-6 mt-12 border-none shadow-none'
-    : 'bg-white py-8 px-6 mt-12 border-t border-primary-100 dark:bg-gray-900 dark:border-gray-800';
   const hitokotoClass = (isCustomWallpaper ? 'text-black dark:text-gray-200' : 'text-gray-500 dark:text-gray-400') + ' ml-auto';
 
   // === 16. 模板注入 ===
@@ -546,7 +540,6 @@ export async function onRequest(context) {
     'HEADER_CONTENT': headerContent,
     'HEADER_CLASS': headerClass,
     'CONTAINER_CLASS': containerClass,
-    'FOOTER_CLASS': footerClass,
     'HITOKOTO_CLASS': hitokotoClass,
     'LEFT_TOP_ACTION': leftTopActionHtml,
     'RIGHT_TOP_ACTION': topRightActionsHtml,
@@ -554,7 +547,6 @@ export async function onRequest(context) {
     'SITE_DESCRIPTION': escapeHTML(siteDescription),
     'CANONICAL_URL': escapeHTML(canonicalUrl),
     'OG_IMAGE_URL': escapeHTML(ogImageUrl),
-    'FOOTER_TEXT': escapeHTML(footerText),
     'CATALOG_EXISTS': catalogExists ? 'true' : 'false',
     'CATALOG_LINKS': catalogLinkMarkup,
     'SUBMISSION_CLASS': submissionClass,
