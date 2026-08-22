@@ -361,47 +361,9 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
 
 /* 分类行宽度：与 header max-w-5xl 一致，配合 min-width: 4em+2rem 约可单行展示 8 个分类 */
 .horizontal-category-nav-shell {
-  width: min(100%, 64rem); /* max-w-5xl */
+  width: min(100%, 80rem); /* max-w-7xl */
   max-width: 100%;
-  position: relative;
   box-sizing: border-box;
-}
-
-.horizontal-category-nav-shell::before,
-.horizontal-category-nav-shell::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 3rem;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.horizontal-category-nav-shell::before {
-  left: 0;
-  background: linear-gradient(to right, var(--nav-fade-bg, #f6ede1) 18%, rgba(246, 237, 225, 0));
-}
-
-.horizontal-category-nav-shell::after {
-  right: 0;
-  background: linear-gradient(to left, var(--nav-fade-bg, #f6ede1) 18%, rgba(246, 237, 225, 0));
-}
-
-.dark .horizontal-category-nav-shell::before {
-  background: linear-gradient(to right, var(--nav-fade-bg, #111827) 18%, rgba(17, 24, 39, 0));
-}
-
-.dark .horizontal-category-nav-shell::after {
-  background: linear-gradient(to left, var(--nav-fade-bg, #111827) 18%, rgba(17, 24, 39, 0));
-}
-
-.custom-wallpaper .horizontal-category-nav-shell::before {
-  background: linear-gradient(to right, var(--nav-fade-bg, rgba(255, 255, 255, 0.92)) 18%, rgba(255, 255, 255, 0));
-}
-
-.custom-wallpaper .horizontal-category-nav-shell::after {
-  background: linear-gradient(to left, var(--nav-fade-bg, rgba(255, 255, 255, 0.92)) 18%, rgba(255, 255, 255, 0));
 }
 
 #horizontalCategoryNav {
@@ -413,6 +375,8 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
   scroll-snap-type: x proximity;
   scroll-padding-inline: 1.25rem;
   touch-action: pan-x;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 2rem, #000 calc(100% - 2rem), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 2rem, #000 calc(100% - 2rem), transparent 100%);
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -1282,8 +1246,8 @@ body .search-engine-option.active {
 
   body.desktop-page-style3.category-pos-top .horizontal-category-nav-shell,
   body.desktop-page-style3.category-pos-top .horizontal-category-nav-shell.is-top {
-    max-width: min(64rem, 100%);
-    width: min(100%, 64rem);
+    max-width: min(80rem, 100%);
+    width: min(100%, 80rem);
     margin-left: auto;
     margin-right: auto;
     padding-left: 0 !important;

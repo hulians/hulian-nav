@@ -290,7 +290,7 @@ test('horizontal category overflow matches preview width-based collapse', () => 
   assert.doesNotMatch(source, /MAX_VISIBLE_BUTTONS/);
   assert.doesNotMatch(source, /restoreCategoryFromDropdown/);
   assert.doesNotMatch(source, /ResizeObserver/);
-  assert.match(homeCss, /\.horizontal-category-nav-shell\s*\{[^}]*width:\s*min\(100%, 64rem\)/);
+  assert.match(homeCss, /\.horizontal-category-nav-shell\s*\{[^}]*width:\s*min\(100%, 80rem\)/);
   assert.match(homeCss, /\.nav-btn\s*\{[^}]*min-width:\s*calc\(4em \+ 2rem\)/);
   assert.match(homeCss, /body\.desktop-page-style3[\s\S]*?\.nav-btn[\s\S]*?min-width:\s*calc\(4em \+ 2rem\)/);
   assert.match(indexSource, /is-single-line/);
