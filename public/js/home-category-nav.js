@@ -121,17 +121,6 @@
         });
       }
 
-      if (dropdown && moreBtn) {
-        const activeInDropdown = dropdown.querySelector('.active');
-        if (activeInDropdown) {
-          moreBtn.classList.add('active', 'text-primary-600', 'bg-secondary-100');
-          moreBtn.classList.remove('inactive');
-        } else {
-          moreBtn.classList.remove('active', 'text-primary-600', 'bg-secondary-100');
-          moreBtn.classList.add('inactive');
-        }
-      }
-
       if (!catalogId) {
         const allBtn = document.querySelector('a[href="?catalog=all"]');
         if (allBtn) {
