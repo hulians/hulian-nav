@@ -275,9 +275,10 @@ test('category nav keeps overflow visible so dropdowns are not clipped', () => {
   const navSource = readFileSync('public/js/home-category-nav.js', 'utf8');
 
   assert.match(homeCss, /#horizontalCategoryNav[\s\S]*?overflow-x:\s*auto/);
-  assert.match(homeCss, /#horizontalCategoryNav\.is-single-line[\s\S]*?justify-content:\s*flex-start/);
+  assert.match(homeCss, /#horizontalCategoryNav\.is-single-line[\s\S]*?justify-content:\s*center/);
+  assert.match(homeCss, /#horizontalCategoryNav\.is-single-line\.is-overflowing[\s\S]*?justify-content:\s*flex-start/);
   assert.match(indexSource, /horizontalCategoryNavOverflowClass = 'overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar'/);
-  assert.match(indexSource, /horizontalCategoryNavJustifyClass = 'justify-start'/);
+  assert.match(indexSource, /horizontalCategoryNavJustifyClass = 'justify-center md:justify-start'/);
   assert.match(navSource, /navContainer\.style\.overflowX = 'auto'/);
 });
 

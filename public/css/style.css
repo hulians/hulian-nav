@@ -387,6 +387,10 @@ body:not(.app-ready) #sidebar a[href="?catalog=all"] {
 
 #horizontalCategoryNav.is-single-line {
   flex-wrap: nowrap;
+  justify-content: center;
+}
+
+#horizontalCategoryNav.is-single-line.is-overflowing {
   justify-content: flex-start;
 }
 

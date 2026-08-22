@@ -11,6 +11,12 @@
     navContainer.style.scrollBehavior = 'smooth';
     navContainer.style.webkitOverflowScrolling = 'touch';
 
+    const syncNavAlignment = () => {
+      const isOverflowing = navContainer.scrollWidth > navContainer.clientWidth + 1;
+      navContainer.classList.toggle('is-overflowing', isOverflowing);
+      navContainer.style.scrollPaddingInline = isOverflowing ? '1.25rem' : '0';
+    };
+
     const ensureScrollPadding = () => {
       const items = Array.from(navContainer.children);
       if (items.length === 0) return;
@@ -21,10 +27,12 @@
       } else {
         navContainer.style.paddingBottom = '0';
       }
+      syncNavAlignment();
     };
 
     requestAnimationFrame(ensureScrollPadding);
     window.addEventListener('resize', ensureScrollPadding);
+    window.addEventListener('load', ensureScrollPadding);
 
     document.addEventListener('click', async (e) => {
       const link = e.target.closest('a[href^="?catalog="]');
@@ -206,5 +214,6 @@
 
     Home.updateNavigationState = updateNavigationState;
     restoreLastCategory();
+    syncNavAlignment();
   };
 })();

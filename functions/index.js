@@ -301,7 +301,7 @@ export async function onRequest(context) {
   const horizontalCategoryNavShellClass = categoryPosition === 'top'
     ? 'horizontal-category-nav-shell is-top relative mx-auto'
     : 'horizontal-category-nav-shell relative mx-auto';
-  const horizontalCategoryNavJustifyClass = 'justify-start';
+  const horizontalCategoryNavJustifyClass = 'justify-center md:justify-start';
   const horizontalCategoryNavWrapClass = 'flex-nowrap';
   const horizontalCategoryNavOverflowClass = 'overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar';
   const horizontalCategoryNavFlowClass = 'is-single-line';
