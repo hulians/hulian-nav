@@ -279,7 +279,7 @@
 
         card.innerHTML = `
         <div class="site-card-content">
-          <a href="${site.urlHtml || '#'}" ${site.hasValidUrl ? 'target="_blank" rel="noopener noreferrer"' : ''} class="block">
+          <a href="${site.urlHtml || '#'}" ${site.hasValidUrl ? 'rel="noopener noreferrer"' : ''} class="block">
             <div class="flex items-start">
               <div class="${cardConfig.siteIconClass}">
                 ${logoHtml}

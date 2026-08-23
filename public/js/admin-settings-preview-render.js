@@ -176,7 +176,7 @@
       return `
         <article class="${cardClass}" data-id="${shared.escapeHTML(card.id)}">
           <div class="site-card-content">
-            <a href="${urlHtml || '#'}" ${card.hasValidUrl ? 'target="_blank" rel="noopener noreferrer"' : ''} class="block">
+            <a href="${urlHtml || '#'}" ${card.hasValidUrl ? 'rel="noopener noreferrer"' : ''} class="block">
               <div class="flex items-start">
                 <div class="site-icon flex-shrink-0 mr-4 transition-all duration-300">
                   ${logoHtml}

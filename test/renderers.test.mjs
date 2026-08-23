@@ -346,11 +346,14 @@ test('external search inherits bookmark title colors but keeps selected state bl
 test('bookmark title settings explain and drive external search colors only', () => {
   const html = readFileSync('public/admin/index.html', 'utf8');
   const previewSource = readFileSync('public/js/admin-settings-preview-render.js', 'utf8');
+  const homeCardsSource = readFileSync('public/js/home-cards.js', 'utf8');
 
   assert.match(html, /书签标题样式[\s\S]*?颜色同时用于外部搜索文字/);
   assert.match(html, /手机书签标题样式[\s\S]*?颜色同时用于手机外部搜索文字/);
   assert.match(previewSource, /option\.style\.setProperty\('color', settings\.cardTitleColor, 'important'\)/);
   assert.match(previewSource, /searchEngines\.querySelectorAll\('\.search-engine-option'\)/);
+  assert.doesNotMatch(previewSource, /target="_blank"/);
+  assert.doesNotMatch(homeCardsSource, /target="_blank"/);
   // 选中项不写标题色，交给 CSS 强调蓝
   assert.match(previewSource, /classList\.contains\('active'\)[\s\S]*?removeProperty\('color'\)/);
   assert.doesNotMatch(previewSource, /searchEngines\.style\.(?:fontFamily|fontSize)/);

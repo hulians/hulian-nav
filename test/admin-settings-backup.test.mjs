@@ -122,6 +122,8 @@ test('backup deletion reuses the bookmark-card delete icon and confirmation copy
   assert.ok(backupSource.includes(`d="${deletePath}"`));
   assert.ok(bookmarkSource.includes(deleteClasses));
   assert.ok(backupSource.includes(deleteClasses));
+  assert.match(bookmarkSource, /window\.location\.href = normalizedUrl/);
+  assert.doesNotMatch(bookmarkSource, /window\.open\(normalizedUrl, '_blank'/);
   assert.match(html, /id="webdavDeleteConfirmModal"[\s\S]*?确定要删除该备份吗？[\s\S]*?此操作无法撤销，请谨慎操作。/);
 });
 

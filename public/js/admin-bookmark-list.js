@@ -141,7 +141,7 @@
     card.dataset.id = config.id;
     card.addEventListener('click', () => {
       if (normalizedUrl) {
-        window.open(normalizedUrl, '_blank', 'noopener,noreferrer');
+        window.location.href = normalizedUrl;
       }
     });
 
