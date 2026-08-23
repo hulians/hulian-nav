@@ -34,6 +34,22 @@
     window.addEventListener('resize', ensureScrollPadding);
     window.addEventListener('load', ensureScrollPadding);
 
+    const isCatalogLink = (target) => target?.closest?.('a[href^="?catalog="]');
+
+    const blockNonPrimaryOpen = (e) => {
+      const link = isCatalogLink(e.target);
+      if (!link) return false;
+
+      if (e.type === 'auxclick' || e.type === 'mousedown') {
+        e.preventDefault();
+      }
+
+      return true;
+    };
+
+    document.addEventListener('mousedown', blockNonPrimaryOpen, true);
+    document.addEventListener('auxclick', blockNonPrimaryOpen, true);
+
     document.addEventListener('click', async (e) => {
       const link = e.target.closest('a[href^="?catalog="]');
       if (!link) return;
