@@ -19,7 +19,7 @@
   <link rel="icon" href="/favicon.svg?v=0636de78" type="image/svg+xml">
   <link rel="icon" href="/favicon-32x32.png?v=148aafdf" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=148aafdf">
-  <link rel="stylesheet" href="/css/style.css?v=393b57aa">
+  <link rel="stylesheet" href="/css/style.css?v=cfbe7a97">
   <script>
     // Init Theme ASAP to prevent FOUC
     if (localStorage.getItem('theme') === 'dark') {
@@ -82,12 +82,12 @@
       <div>
         <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">分类导航</h3>
         <div class="space-y-1">
-          <a href="?catalog=all" class="flex items-center px-3 py-2 rounded-lg {{CATALOG_EXISTS}} w-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <button type="button" data-href="?catalog=all" class="flex items-center px-3 py-2 rounded-lg {{CATALOG_EXISTS}} w-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
             <span class="text-gray-700 dark:text-gray-200">全部</span>
-          </a>
+          </button>
           {{CATALOG_LINKS}}
         </div>
       </div>
@@ -213,7 +213,7 @@
   <script src="/js/home-cards.js?v=acd23365"></script>
   <script src="/js/home-submit.js?v=5457a66d"></script>
   <script src="/js/home-search.js?v=c71ab7b5"></script>
-  <script src="/js/home-category-nav.js?v=e34ae68c"></script>
+  <script src="/js/home-category-nav.js?v=f6db9d06"></script>
   <script src="/js/main.js?v=193ce81f"></script>
 </body>
 </html>

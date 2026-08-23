@@ -325,6 +325,9 @@ body.custom-wallpaper .admin-action-icon:hover {
   cursor: pointer; text-decoration: none; height: 2.5rem;
   min-width: calc(4em + 2rem);
   scroll-snap-align: start;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
 }
 
 #horizontalMoreBtn {
@@ -333,8 +336,8 @@ body.custom-wallpaper .admin-action-icon:hover {
 
 body:not(.app-ready) .nav-btn,
 body:not(.app-ready) .dropdown-item,
-body:not(.app-ready) #sidebar a[data-id],
-body:not(.app-ready) #sidebar a[href="?catalog=all"] {
+body:not(.app-ready) #sidebar button[data-id],
+body:not(.app-ready) #sidebar button[data-href="?catalog=all"] {
   transition: none !important;
 }
 
@@ -1726,6 +1729,10 @@ html:not(.dark) body.custom-wallpaper .sidebar {
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
 }
 
 .dropdown-item:hover {

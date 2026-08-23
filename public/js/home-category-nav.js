@@ -34,7 +34,7 @@
     window.addEventListener('resize', ensureScrollPadding);
     window.addEventListener('load', ensureScrollPadding);
 
-    const isCatalogLink = (target) => target?.closest?.('a[href^="?catalog="]');
+    const isCatalogLink = (target) => target?.closest?.('button[data-href^="?catalog="]');
 
     const blockNonPrimaryOpen = (e) => {
       const link = isCatalogLink(e.target);
@@ -51,11 +51,11 @@
     document.addEventListener('auxclick', blockNonPrimaryOpen, true);
 
     document.addEventListener('click', async (e) => {
-      const link = e.target.closest('a[href^="?catalog="]');
+      const link = e.target.closest('button[data-href^="?catalog="]');
       if (!link) return;
 
       e.preventDefault();
-      const href = link.getAttribute('href');
+      const href = link.getAttribute('data-href');
       const catalogId = link.getAttribute('data-id');
       const catalogName = link.textContent.trim();
 
@@ -110,7 +110,7 @@
     }
 
     function updateNavigationState(catalogId) {
-      const allLinks = document.querySelectorAll('a.nav-btn, a.dropdown-item');
+      const allLinks = document.querySelectorAll('button.nav-btn, button.dropdown-item');
       allLinks.forEach(link => {
         const linkId = link.getAttribute('data-id');
         const isActive = (!catalogId && !linkId) || (String(linkId) === String(catalogId));
@@ -128,7 +128,7 @@
       if (navContainer) {
         const topWrappers = Array.from(navContainer.children);
         topWrappers.forEach(wrapper => {
-          const topLink = wrapper.querySelector(':scope > a.nav-btn');
+          const topLink = wrapper.querySelector(':scope > button.nav-btn');
           if (!topLink) return;
 
           const topLinkId = topLink.getAttribute('data-id');
@@ -144,7 +144,7 @@
       }
 
       if (!catalogId) {
-        const allBtn = document.querySelector('a[href="?catalog=all"]');
+        const allBtn = document.querySelector('button[data-href="?catalog=all"]');
         if (allBtn) {
           allBtn.classList.remove('inactive');
           allBtn.classList.add('active', 'nav-item-active');
@@ -153,7 +153,7 @@
 
       const sidebar = document.getElementById('sidebar');
       if (sidebar) {
-        const links = sidebar.querySelectorAll('a[data-id], a[href="?catalog=all"]');
+        const links = sidebar.querySelectorAll('button[data-id], button[data-href="?catalog=all"]');
         links.forEach(link => {
           const svg = link.querySelector('svg');
           const linkId = link.getAttribute('data-id');
@@ -211,7 +211,7 @@
         return;
       }
 
-      const link = document.querySelector(`a[data-id="${lastId}"]`);
+      const link = document.querySelector(`button[data-id="${lastId}"]`);
 
       if (link) {
         const catalogName = link.innerText.trim();

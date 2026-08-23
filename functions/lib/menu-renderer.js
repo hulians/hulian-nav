@@ -34,7 +34,7 @@ function _renderHorizontalItems(cats, currentCatalogName, level) {
             : '';
         const childrenHtml = hasChildren ? `<div class="dropdown-menu">${_renderHorizontalItems(cat.children, currentCatalogName, level + 1)}</div>` : '';
 
-        return `<div class="${wrapperClass}"><a href="${linkUrl}" class="${linkClass}" data-id="${cat.id}">${safeName}${arrowSvg}</a>${childrenHtml}</div>`;
+        return `<div class="${wrapperClass}"><button type="button" data-href="${linkUrl}" class="${linkClass}" data-id="${cat.id}">${safeName}${arrowSvg}</button>${childrenHtml}</div>`;
     }).join('');
 }
 
@@ -64,10 +64,10 @@ function _renderVerticalItems(cats, currentCatalogName, isCustomWallpaper, level
         const indent = level * 12;
 
         let html = `
-      <a href="?catalog=${catalogParam}" data-id="${cat.id}" class="${baseClass} ${activeClass}" style="padding-left: ${12 + indent}px">
+      <button type="button" data-href="?catalog=${catalogParam}" data-id="${cat.id}" class="${baseClass} ${activeClass}" style="padding-left: ${12 + indent}px">
           <svg class="h-5 w-5 mr-2 ${iconClass}"><use href="#icon-folder"/></svg>
           ${safeName}
-      </a>`;
+      </button>`;
 
         if (cat.children && cat.children.length > 0) {
             html += _renderVerticalItems(cat.children, currentCatalogName, isCustomWallpaper, level + 1);

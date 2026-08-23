@@ -283,6 +283,7 @@ test('category nav keeps overflow visible so dropdowns are not clipped', () => {
   assert.doesNotMatch(navSource, /metaKey|ctrlKey|shiftKey|altKey/);
   assert.match(navSource, /document\.addEventListener\('mousedown', blockNonPrimaryOpen, true\)/);
   assert.match(navSource, /document\.addEventListener\('auxclick', blockNonPrimaryOpen, true\)/);
+  assert.match(homeCss, /body:not\(\.app-ready\) #sidebar button\[data-href="\?catalog=all"\]/);
 });
 
 test('horizontal category overflow matches preview width-based collapse', () => {
