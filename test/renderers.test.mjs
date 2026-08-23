@@ -280,6 +280,7 @@ test('category nav keeps overflow visible so dropdowns are not clipped', () => {
   assert.match(indexSource, /horizontalCategoryNavOverflowClass = 'overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar'/);
   assert.match(indexSource, /horizontalCategoryNavJustifyClass = 'justify-center md:justify-start'/);
   assert.match(navSource, /navContainer\.style\.overflowX = 'auto'/);
+  assert.doesNotMatch(navSource, /metaKey|ctrlKey|shiftKey|altKey/);
 });
 
 test('horizontal category overflow matches preview width-based collapse', () => {

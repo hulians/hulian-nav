@@ -38,8 +38,6 @@
       const link = e.target.closest('a[href^="?catalog="]');
       if (!link) return;
 
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-
       e.preventDefault();
       const href = link.getAttribute('href');
       const catalogId = link.getAttribute('data-id');
