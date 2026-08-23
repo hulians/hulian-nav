@@ -25,6 +25,7 @@ test('renderSiteCards escapes user-controlled fields and rejects unsafe URLs', (
   assert.match(html, /&lt;Work&gt;/);
   assert.match(html, /site-category/);
   assert.match(html, /href="#"/);
+  assert.doesNotMatch(html, /target="_blank"/);
   assert.doesNotMatch(html, /javascript:alert/);
   assert.doesNotMatch(html, /data:text\/html/);
 });

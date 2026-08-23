@@ -37,7 +37,7 @@ export function renderSiteCards(sites, settings) {
     return `
       <div class="${config.baseCardClass} ${config.frostedClass} ${config.cardStyleClass} card-anim-enter" data-id="${card.id}">
         <div class="site-card-content">
-          <a href="${card.urlHtml || '#'}" ${card.hasValidUrl ? 'target="_blank" rel="noopener noreferrer"' : ''} class="block">
+          <a href="${card.urlHtml || '#'}" ${card.hasValidUrl ? 'rel="noopener noreferrer"' : ''} class="block">
             <div class="flex items-start">
               <div class="${config.siteIconClass}">
                 ${card.logoUrlHtml
